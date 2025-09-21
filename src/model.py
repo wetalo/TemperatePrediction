@@ -18,4 +18,3 @@ class Model:
 
     def predict_weather(self):
         self.pred = self.model.predict(n=42)
-        print(self.pred)

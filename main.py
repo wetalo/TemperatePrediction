@@ -2,6 +2,7 @@
 from src.utils.input import csvLoader, yamlLoader
 from src.transform import DataTransformation
 from src.model import Model
+from src.MLFlow import MLFlowControl
 
 if __name__ == "__main__":
     config = yamlLoader().load_file("params.yaml")
@@ -18,3 +19,10 @@ if __name__ == "__main__":
     modelTrainingObject.train_test_split()
     modelTrainingObject.train_model()
     modelTrainingObject.predict_weather()
+
+    mlflowObject = MLFlowControl(prediction= modelTrainingObject.pred,
+                                actual_values= modelTrainingObject.X_test,
+                                model= modelTrainingObject.model,
+                                 config= config)
+    mlflowObject.evaluate_score()
+    mlflowObject.log_mlflow()
